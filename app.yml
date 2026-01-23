@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tasklist
+  template:
+    metadata:
+      labels:
+        app: tasklist
+    spec:
+      imagePullSecrets:
+        - name: ghcr-secret
+      containers:
+      - name: tasklist
+        image: ghcr.io/team-m4/tasklist-app:latest
+        ports:
+          - containerPort: 8080
+        env:
+          - name: SPRING_DATASOURCE_URL
+            value: jdbc:postgresql://postgres:5432/tasklistdb
+          - name: SPRING_DATASOURCE_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secret
+                key: POSTGRES_USER
+          - name: SPRING_DATASOURCE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secret
+                key: POSTGRES_PASSWORD
+          - name: JAVA_OPTS
+            value: "-javaagent:/opt/appdynamics/javaagent.jar"
+          - name: APPDYNAMICS_CONTROLLER_HOST_NAME
+            value: "<controller-host>"
+          - name: APPDYNAMICS_CONTROLLER_PORT
+            value: "8090"
+          - name: APPDYNAMICS_AGENT_ACCOUNT_NAME
+            value: "<account-name>"
+          - name: APPDYNAMICS_AGENT_ACCESS_KEY
+            value: "<access-key>"
+          - name: APPDYNAMICS_AGENT_APPLICATION_NAME
+            value: "TasklistApp"
+          - name: APPDYNAMICS_AGENT_TIER_NAME
+            value: "Backend"
+          - name: APPDYNAMICS_AGENT_NODE_NAME
+            value: "TasklistNode1"
+        volumeMounts:
+          - name: appd-agent-vol
+            mountPath: /opt/appdynamics
+
+      - name: appd-agent
+        image: appdynamics/java-agent:latest
+        volumeMounts:
+          - name: appd-agent-vol
+            mountPath: /opt/appdynamics
+
+      volumes:
+      - name: appd-agent-vol
+        emptyDir: {}
