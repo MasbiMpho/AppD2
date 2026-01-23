@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appd-db-agent
+  namespace: appdynamics
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+      - name: db-agent
+        image: appdynamics/db-agent:latest
+        env:
+        - name: DB_HOST
+          value: "postgres.default.svc.cluster.local"
+        - name: DB_PORT
+          value: "5432"
+        - name: DB_NAME
+          value: "tasklistdb"
+        - name: APPDYNAMICS_CONTROLLER_HOST_NAME
+          value: "<controller-host>"
+        - name: APPDYNAMICS_AGENT_ACCOUNT_NAME
+          value: "<account-name>"
+        - name: APPDYNAMICS_AGENT_ACCESS_KEY
+          value: "<access-key>"
