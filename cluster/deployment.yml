@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appd-cluster-agent
+  namespace: appdynamics
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+      - name: cluster-agent
+        image: appdynamics/cluster-agent:latest
+        env:
+        - name: CONTROLLER_URL
+          value: "https://<controller-host>:<port>"
+        - name: ACCOUNT_NAME
+          value: "<account-name>"
+        - name: ACCESS_KEY
+          value: "<access-key>"
