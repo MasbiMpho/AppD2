@@ -16,17 +16,40 @@ spec:
       containers:
       - name: cluster-agent
         image: appdynamics/cluster-agent:latest
-        resources: 
-          requests: 
-            cpu: "250m" 
-            memory: "512Mi" 
-          limits: 
-            cpu: "500m" 
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "512Mi"
+          limits:
+            cpu: "500m"
             memory: "1Gi"
         env:
-        - name: CONTROLLER_URL
-          value: "lombard202601220244269.saas.appdynamics.com:443"
-        - name: ACCOUNT_NAME
-          value: "lombard202601220244269"
-        - name: ACCESS_KEY
-          value: "d5apz8dbyuxs"
+        - name: APPDYNAMICS_CONTROLLER_HOST_NAME
+          valueFrom:
+            secretKeyRef:
+              name: appdynamics-secret
+              key: controller-host
+
+        - name: APPDYNAMICS_CONTROLLER_PORT
+          valueFrom:
+            secretKeyRef:
+              name: appdynamics-secret
+              key: controller-port
+
+        - name: APPDYNAMICS_CONTROLLER_SSL_ENABLED
+          valueFrom:
+            secretKeyRef:
+              name: appdynamics-secret
+              key: controller-ssl-enabled
+
+        - name: APPDYNAMICS_AGENT_ACCOUNT_NAME
+          valueFrom:
+            secretKeyRef:
+              name: appdynamics-secret
+              key: account-name
+
+        - name: APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: appdynamics-secret
+              key: account-access-key
