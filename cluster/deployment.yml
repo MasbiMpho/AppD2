@@ -25,8 +25,8 @@ spec:
             memory: "1Gi"
         env:
         - name: CONTROLLER_URL
-          value: "https://<controller-host>:<port>"
+          value: "lombard202601220244269.saas.appdynamics.com:443"
         - name: ACCOUNT_NAME
-          value: "<account-name>"
+          value: "lombard202601220244269"
         - name: ACCESS_KEY
-          value: "<access-key>"
+          value: "d5apz8dbyuxs"
