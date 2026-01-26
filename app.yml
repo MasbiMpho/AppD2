@@ -36,19 +36,19 @@ spec:
           - name: JAVA_OPTS
             value: "-javaagent:/opt/appdynamics/javaagent.jar"
           - name: APPDYNAMICS_CONTROLLER_HOST_NAME
-            value: "<controller-host>"
+            value: "lombard202601220244269.saas.appdynamics.com"
           - name: APPDYNAMICS_CONTROLLER_PORT
-            value: "8090"
+            value: "443"
           - name: APPDYNAMICS_AGENT_ACCOUNT_NAME
-            value: "<account-name>"
+            value: "lombard202601220244269"
           - name: APPDYNAMICS_AGENT_ACCESS_KEY
-            value: "<access-key>"
+            value: "d5apz8dbyuxs"
           - name: APPDYNAMICS_AGENT_APPLICATION_NAME
             value: "TasklistApp"
           - name: APPDYNAMICS_AGENT_TIER_NAME
-            value: "Backend"
+            value: "API"
           - name: APPDYNAMICS_AGENT_NODE_NAME
-            value: "TasklistNode1"
+            value: "app-node"
         volumeMounts:
           - name: appd-agent-vol
             mountPath: /opt/appdynamics
