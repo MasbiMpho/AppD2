@@ -5,11 +5,24 @@ metadata:
   namespace: appdynamics
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: cluster-agent
   template:
+    metadata:
+      labels:
+        app: cluster-agent
     spec:
       containers:
       - name: db-agent
         image: appdynamics/db-agent:latest
+        resources: 
+          requests: 
+            cpu: "250m" 
+            memory: "512Mi" 
+          limits: 
+            cpu: "500m" 
+            memory: "1Gi"
         env:
         - name: DB_HOST
           value: "postgres.default.svc.cluster.local"
