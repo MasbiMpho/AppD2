@@ -31,6 +31,19 @@ spec:
         - name: DB_NAME
           value: "tasklistdb"
 
+        - name: APPDYNAMICS_CONTROLLER_PORT
+          valueFrom:
+            secretKeyRef:
+              name: appdynamics-secret
+              key: controller-port
+
+        - name: APPDYNAMICS_CONTROLLER_SSL_ENABLED
+          valueFrom:
+            secretKeyRef:
+              name: appdynamics-secret
+              key: controller-ssl-enabled
+
+
         - name: APPDYNAMICS_CONTROLLER_HOST_NAME
           valueFrom:
             secretKeyRef:

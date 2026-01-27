@@ -24,6 +24,9 @@ spec:
             cpu: "500m"
             memory: "1Gi"
         env:
+        - name: APPDYNAMICS_AGENT_CLUSTER_NAME
+          value: "microk8s-cluster"
+
         - name: APPDYNAMICS_CONTROLLER_HOST_NAME
           valueFrom:
             secretKeyRef:
