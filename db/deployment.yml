@@ -30,32 +30,42 @@ spec:
           value: "5432"
         - name: DB_NAME
           value: "tasklistdb"
-
-        - name: APPDYNAMICS_CONTROLLER_PORT
+        - name: DB_USERNAME
           valueFrom:
             secretKeyRef:
-              name: appdynamics-secret
-              key: controller-port
-
-        - name: APPDYNAMICS_CONTROLLER_SSL_ENABLED
+              name: postgres-secret
+              key: POSTGRES_USER
+        - name: DB_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: appdynamics-secret
-              key: controller-ssl-enabled
+              name: postgres-secret
+              key: POSTGRES_PASSWORD
 
+        - name: APPDYNAMICS_AGENT_NAME
+          value: "PostgresAgent"
+        - name: APPDYNAMICS_AGENT_APPLICATION_NAME
+          value: "TasklistApp"
 
         - name: APPDYNAMICS_CONTROLLER_HOST_NAME
           valueFrom:
             secretKeyRef:
               name: appdynamics-secret
               key: controller-host
-
+        - name: APPDYNAMICS_CONTROLLER_PORT
+          valueFrom:
+            secretKeyRef:
+              name: appdynamics-secret
+              key: controller-port
+        - name: APPDYNAMICS_CONTROLLER_SSL_ENABLED
+          valueFrom:
+            secretKeyRef:
+              name: appdynamics-secret
+              key: controller-ssl-enabled
         - name: APPDYNAMICS_AGENT_ACCOUNT_NAME
           valueFrom:
             secretKeyRef:
               name: appdynamics-secret
               key: account-name
-
         - name: APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY
           valueFrom:
             secretKeyRef:
