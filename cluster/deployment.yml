@@ -13,6 +13,7 @@ spec:
       labels:
         app: cluster-agent
     spec:
+      serviceAccountName: appd-cluster-agent
       containers:
       - name: cluster-agent
         image: appdynamics/cluster-agent:latest
@@ -26,31 +27,28 @@ spec:
         env:
         - name: APPDYNAMICS_AGENT_CLUSTER_NAME
           value: "microk8s-cluster"
-
+        - name: APPDYNAMICS_AGENT_APPLICATION_NAME
+          value: "TasklistApp"
         - name: APPDYNAMICS_CONTROLLER_HOST_NAME
           valueFrom:
             secretKeyRef:
               name: appdynamics-secret
               key: controller-host
-
         - name: APPDYNAMICS_CONTROLLER_PORT
           valueFrom:
             secretKeyRef:
               name: appdynamics-secret
               key: controller-port
-
         - name: APPDYNAMICS_CONTROLLER_SSL_ENABLED
           valueFrom:
             secretKeyRef:
               name: appdynamics-secret
               key: controller-ssl-enabled
-
         - name: APPDYNAMICS_AGENT_ACCOUNT_NAME
           valueFrom:
             secretKeyRef:
               name: appdynamics-secret
               key: account-name
-
         - name: APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY
           valueFrom:
             secretKeyRef:
