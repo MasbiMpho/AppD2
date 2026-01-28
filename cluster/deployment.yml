@@ -19,11 +19,11 @@ spec:
         image: appdynamics/cluster-agent:latest
         resources:
           requests:
-            cpu: "250m"
-            memory: "512Mi"
+            cpu: "350m"
+            memory: "612Mi"
           limits:
-            cpu: "500m"
-            memory: "1Gi"
+            cpu: "700m"
+            memory: "2Gi"
         env:
         - name: APPDYNAMICS_AGENT_CLUSTER_NAME
           value: "microk8s-cluster"
